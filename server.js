@@ -45,10 +45,12 @@ app.prepare().then(() => {
     socket.on("sendNotification", ({ receiverUsername, data }) => {
       const receiver = getUser(receiverUsername);
 
-      io.to(receiver.socketId).emit("getNotification", {
-        id: uuidv4(),
-        ...data,
-      });
+      if (receiver) {
+        io.to(receiver.socketId).emit("getNotification", {
+          id: uuidv4(),
+          ...data,
+        });
+      }
     });
 
     socket.on("disconnect", () => {
