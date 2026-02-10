@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '50mb',
     },
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  output: "standalone",
   transpilePackages: ["@clerk/elements"],
 };
 

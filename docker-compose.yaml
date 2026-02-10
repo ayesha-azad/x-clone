@@ -1,37 +1,28 @@
 services:
-  db:
-    image: mysql:latest
-    container_name: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: ayesha123
-      MYSQL_DATABASE: mydb
-    volumes:
-      - db-data:/var/lib/mysql
-    ports:
-      - "3306:3306"
-
   web:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_CLERK_SIGN_IN_URL: ${NEXT_PUBLIC_CLERK_SIGN_IN_URL}
+        NEXT_PUBLIC_CLERK_SIGN_UP_URL: ${NEXT_PUBLIC_CLERK_SIGN_UP_URL}
+        NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: ${NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL}
+        NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: ${NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL}
+        NEXT_PUBLIC_PUBLIC_KEY: ${NEXT_PUBLIC_PUBLIC_KEY}
+        NEXT_PUBLIC_URL_ENDPOINT: ${NEXT_PUBLIC_URL_ENDPOINT}
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     image: ${DOCKER_USERNAME}/x-clone:latest
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: mysql://root:ayesha123@db:3306/mydb
+      DATABASE_URL: ${DATABASE_URL}
       NEXT_PUBLIC_CLERK_SIGN_IN_URL: ${NEXT_PUBLIC_CLERK_SIGN_IN_URL}
       NEXT_PUBLIC_CLERK_SIGN_UP_URL: ${NEXT_PUBLIC_CLERK_SIGN_UP_URL}
       NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: ${NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL}
       NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: ${NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL}
       NEXT_PUBLIC_PUBLIC_KEY: ${NEXT_PUBLIC_PUBLIC_KEY}
       NEXT_PUBLIC_URL_ENDPOINT: ${NEXT_PUBLIC_URL_ENDPOINT}
-      PRIVATE_KEY: ${PRIVATE_KEY}
       NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
       CLERK_SECRET_KEY: ${CLERK_SECRET_KEY}
       SIGNING_SECRET: ${SIGNING_SECRET}
-    depends_on:
-      - db
     command: sh -c "npx prisma migrate deploy && npm start"
-
-volumes:
-  db-data:
