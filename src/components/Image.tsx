@@ -19,11 +19,26 @@ if (!urlEndpoint) {
 }
 
 const Image = ({ path, src, w, h, alt, className, tr }: ImageType) => {
+  // Option B: Support local files from the public folder
+  if (path && (path.startsWith("icons/") || path.startsWith("general/") || path.startsWith("svg/"))) {
+    return (
+      <img
+        src={`/${path}`}
+        alt={alt}
+        width={w}
+        height={h}
+        className={className}
+      />
+    );
+  }
+
+  const isFullUrl = path?.startsWith("http");
+
   return (
     <IKImage
       urlEndpoint={urlEndpoint}
-      path={path}
-      src={src}
+      path={!isFullUrl ? path : undefined}
+      src={isFullUrl ? path : src}
       {...(tr
         ? { transformation: [{ width: `${w}`, height: `${h}` }] }
         : { width: w, height: h })}

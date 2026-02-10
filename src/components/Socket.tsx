@@ -22,7 +22,7 @@ export default function Socket() {
       socket.io.engine.on("upgrade", (transport) => {
         setTransport(transport.name);
       });
-      if (user) {
+      if (user && user.username) {
         socket.emit("newUser", user.username);
       }
     }

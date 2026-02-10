@@ -15,7 +15,7 @@ const RightBar = () => {
         <Link href="/">Cookie Policy</Link>
         <Link href="/">Accessibility</Link>
         <Link href="/">Ads Info</Link>
-        <span>© 2025 L Corp.</span>
+        <span>2025 L Corp &copy CI/CD by Ayesha Azad</span>
       </div>
     </div>
   );

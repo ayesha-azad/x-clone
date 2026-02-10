@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '50mb',
     },
   },
+  transpilePackages: ["@clerk/elements"],
 };
 
 export default nextConfig;

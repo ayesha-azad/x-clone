@@ -42,7 +42,7 @@ const UserPage = async ({
           {/* COVER */}
           <div className="w-full aspect-[3/1] relative">
             <Image
-              path={user.cover || "general/noCover.png"}
+              path={user.cover || "general/cover.jpeg"}
               alt=""
               w={600}
               h={200}
@@ -52,7 +52,7 @@ const UserPage = async ({
           {/* AVATAR */}
           <div className="w-1/5 aspect-square rounded-full overflow-hidden border-4 border-black bg-gray-300 absolute left-4 -translate-y-1/2">
             <Image
-              path={user.img || "general/noAvatar.png"}
+              path={user.img || "general/avatar.jpeg"}
               alt=""
               w={100}
               h={100}

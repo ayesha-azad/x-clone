@@ -55,20 +55,31 @@ export async function POST(req: Request) {
   console.log(`Received webhook with ID ${id} and event type of ${eventType}`);
   console.log("Webhook payload:", body);
 
-  if (eventType === "user.created") {
+  if (eventType === "user.created" || eventType === "user.updated") {
     try {
-      await prisma.user.create({
-        data: {
-          id: evt.data.id,
-          username: JSON.parse(body).data.username,
-          email: JSON.parse(body).data.email_addresses[0].email_address,
-          img: JSON.parse(body).image_url || "" 
+      const data = evt.data;
+      const username = data.username || data.email_addresses[0].email_address.split("@")[0] + Math.floor(Math.random() * 1000);
+      const displayName = data.first_name ? `${data.first_name} ${data.last_name || ""}`.trim() : username;
+
+      await prisma.user.upsert({
+        where: { id: data.id },
+        update: {
+          username: username,
+          displayName: displayName,
+          img: data.image_url || "",
+        },
+        create: {
+          id: data.id,
+          username: username,
+          displayName: displayName,
+          email: data.email_addresses[0].email_address,
+          img: data.image_url || "",
         },
       });
-      return new Response("User created", { status: 200 });
+      return new Response("User processed", { status: 200 });
     } catch (err) {
-      console.log(err);
-      return new Response("Error: Failed to create a user!", {
+      console.error("Webhook Error:", err);
+      return new Response("Error: Failed to process user!", {
         status: 500,
       });
     }

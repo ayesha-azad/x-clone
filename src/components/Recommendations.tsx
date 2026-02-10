@@ -32,7 +32,7 @@ const Recommendations = async () => {
           <div className="flex items-center gap-2">
             <div className="relative rounded-full overflow-hidden w-10 h-10">
               <Image
-                path={person.img || "general/noAvatar.png"}
+                path={person.img || "general/avatar.jpeg"}
                 alt={person.username}
                 w={100}
                 h={100}

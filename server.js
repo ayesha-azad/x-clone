@@ -17,7 +17,9 @@ const addUser = (username, socketId) => {
 
   if (!isExist) {
     onlineUsers.push({ username, socketId });
-    console.log(username + "added!");
+    if (username) {
+      console.log("User " + username + " added!");
+    }
   }
 };
 

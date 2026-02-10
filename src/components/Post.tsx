@@ -64,7 +64,7 @@ const Post = ({
           } relative w-10 h-10 rounded-full overflow-hidden -z-10`}
         >
           <Image
-            path={originalPost.user.img || "general/noAvatar.png"}
+            path={originalPost.user.img || "general/avatar.jpeg"}
             alt=""
             w={100}
             h={100}
@@ -86,7 +86,7 @@ const Post = ({
                 } relative w-10 h-10 rounded-full overflow-hidden`}
               >
                 <Image
-                  path={originalPost.user.img || "general/noAvatar.png"}
+                  path={originalPost.user.img || "general/avatar.jpeg"}
                   alt=""
                   w={100}
                   h={100}

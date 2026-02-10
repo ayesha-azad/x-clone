@@ -89,7 +89,7 @@ const LeftBar = async () => {
                 </div>
               )}
               <Link
-                href={item.link}
+                href={item.name === "Profile" && user ? `/${user.username}` : item.link}
                 className="p-2 rounded-full hover:bg-[#181818] flex items-center gap-4"
               >
                 <Image
@@ -133,8 +133,14 @@ const LeftBar = async () => {
                 />
               </div>
               <div className="hidden xxl:flex flex-col">
-                <span className="font-bold">{user?.username}</span>
-                <span className="text-sm text-textGray">@{user?.username}</span>
+                <span className="font-bold">
+                  {user?.firstName
+                    ? `${user.firstName} ${user.lastName || ""}`
+                    : user?.username || "User"}
+                </span>
+                <span className="text-sm text-textGray">
+                  @{user?.username || user?.externalId || "user"}
+                </span>
               </div>
             </div>
             {/* <div className="hidden xxl:block cursor-pointer font-bold">...</div> */}
