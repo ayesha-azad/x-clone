@@ -18,9 +18,6 @@ COPY --from=deps /app/node_modules ./node_modules
 
 COPY . .
 
-# Generate Prisma Client
-RUN npx prisma generate
-
 ARG DATABASE_URL
 ARG NEXT_PUBLIC_CLERK_SIGN_IN_URL
 ARG NEXT_PUBLIC_CLERK_SIGN_UP_URL
@@ -44,6 +41,9 @@ ENV PRIVATE_KEY=$PRIVATE_KEY
 ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 ENV CLERK_SECRET_KEY=$CLERK_SECRET_KEY
 ENV SIGNING_SECRET=$SIGNING_SECRET
+
+# Generate Prisma Client
+RUN npx prisma generate
 
 # Build Next.js
 RUN npm run build
