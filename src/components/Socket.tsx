@@ -32,12 +32,19 @@ export default function Socket() {
       setTransport("N/A");
     }
 
+    function onConnectError(err: any) {
+      console.error("Socket.IO Connection Error:", err.message);
+      setIsConnected(false);
+    }
+
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
+    socket.on("connect_error", onConnectError);
 
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
+      socket.off("connect_error", onConnectError);
     };
   }, [user]);
 
