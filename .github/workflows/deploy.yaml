@@ -61,3 +61,4 @@ jobs:
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
           SIGNING_SECRET: ${{ secrets.SIGNING_SECRET }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
